@@ -1,0 +1,320 @@
+/* 
+// setErrors((prevErrors) => ({ ...prevErrors, [name]: ''}));
+
+
+     // const { name, email,phone } = profile; 
+        // const newErrors = {};
+        
+        // if (!name) newErrors.name = "Name is required";
+        // if (!email) newErrors.email = "Email is required";
+        // if (!phone) newErrors.phone = "Phone number is required";
+
+        // if (Object.keys(newErrors).length) {
+        //     setErrors(newErrors);
+        //     return;
+       */
+
+/* 
+       import React, { useState } from 'react';
+
+       const Form = () => {
+           const [profile, setProfile] = useState({});
+           const [profiles, setProfiles] = useState([]);
+           const [gender, setGender] = useState('');
+           const [hobby, setHobby] = useState([]);
+       
+           const handleChange = (e) => {
+               const name = e.target.name;
+               const value = e.target.value;
+       
+               setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
+           };
+       
+           const handleCheckboxChange = (e) => {
+               const value = e.target.value;
+               setHobby((prevHobbies) => 
+                   prevHobbies.includes(value) 
+                   ? prevHobbies.filter(h => h !== value) 
+                   : [...prevHobbies, value]
+               );
+           };
+       
+           const handleSubmit = (event) => {
+               event.preventDefault();
+               setProfiles([...profiles, { ...profile, gender, hobby }]);
+               setProfile({});
+               setGender('');
+               setHobby([]);
+           };
+       
+           return (
+               <>
+                   <form onSubmit={handleSubmit}>
+                       <label>
+                           Name:
+                           <input 
+                               value={profile.name || ''}
+                               onChange={handleChange}
+                               name="name"
+                               type="text"
+                               required
+                               placeholder='Enter the name'
+                           />
+                       </label>
+       
+                       <label>
+                           Email:
+                           <input 
+                               value={profile.email || ''}
+                               onChange={handleChange}
+                               name="email"
+                               type="email"
+                               required
+                               placeholder='Enter the email'
+                           />
+                       </label>
+       
+                       <label>
+                           Phone:
+                           <input 
+                               value={profile.phone || ''}
+                               onChange={(e) => setProfile({ ...profile, phone: e.target.value.replace(/\D/g, '').slice(0, 10) })}
+                               name="phone"
+                               type="text"
+                               required
+                               placeholder='Enter the phone'
+                           />
+                       </label>
+       
+                       <label>Gender</label>
+                       <label>Male
+                           <input
+                               type='radio'
+                               name='gender'
+                               value='male'
+                               checked={gender === 'male'}
+                               onChange={(e) => setGender(e.target.value)}
+                               required
+                           />
+                       </label>
+                       <label>Female
+                           <input
+                               type='radio'
+                               name='gender'
+                               value='female'
+                               checked={gender === 'female'}
+                               onChange={(e) => setGender(e.target.value)}
+                               required
+                           />
+                       </label>
+       
+                        <label>Hobby</label>
+                       <div className="hobby-options">
+                           <label>
+                               <input
+                                   type='checkbox'
+                                   value='Photography'
+                                   checked={hobby.includes('Photography')}
+                                   onChange={handleCheckboxChange}
+                               /> Photography
+                           </label>
+                           <label>
+                               <input
+                                   type='checkbox'
+                                   value='Gardening'
+                                   checked={hobby.includes('Gardening')}
+                                   onChange={handleCheckboxChange}
+                               /> Gardening
+                           </label>
+                           <label>
+                               <input
+                                   type='checkbox'
+                                   value='Cooking'
+                                   checked={hobby.includes('Cooking')}
+                                   onChange={handleCheckboxChange}
+                               /> Cooking
+                           </label>
+                       </div>
+       
+                       <button type="submit">Submit</button>
+                   </form>
+       
+                   <table>
+                       <thead>
+                           <tr>
+                               <th>Name</th>
+                               <th>Email</th>
+                               <th>Phone</th>
+                               <th>Gender</th>
+                               <th>Hobby</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           {profiles.map((entry, index) => (
+                               <tr key={index}>
+                                   <td>{entry.name}</td>
+                                   <td>{entry.email}</td>
+                                   <td>{entry.phone}</td>
+                                   <td>{entry.gender}</td>
+                                   <td>{entry.hobby.join(', ')}</td>
+                               </tr>
+                           ))}
+                       </tbody>
+                   </table>
+               </>
+           );
+       };
+       
+       export default Form; */
+
+/* 
+       import React, { useState } from 'react';
+import "./form.css";
+
+function Form() {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [gender, setGender] = useState('');
+    const [hobby, setHobby] = useState('');
+    const [tables, setTables] = useState([]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log({ name, email, phone, gender, hobby });
+        const newTables = { name, email, phone, gender, hobby };
+        setTables([...tables, newTables]);
+        setName('');
+        setEmail('');
+        setPhone('');
+        setGender('');
+        setHobby('');
+    };
+
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <label>Name:
+                    <input
+                        type='text'
+                        name='name'
+                        id='name'
+                        autoComplete='name'
+                        value={name}
+                        onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z]/, ''))}
+                        placeholder='Enter the name'
+                        required
+                    />
+                </label>
+
+                <label>Email:
+                    <input
+                        type='email'
+                        name='email'
+                        id='email'
+                        autoComplete='email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Enter the email'
+                        required
+                    />
+                </label>
+
+                <label>Phone:
+                    <input
+                        type='text'
+                        name='phone'
+                        id='phone'
+                        autoComplete='text'
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value.replace(/\D/, '').slice(0, 10))}
+                        placeholder='Enter the phone'
+                        required
+                    />
+                </label>
+
+                <label>Gender</label>
+                    <label>Male
+                        <input
+                            type='radio'
+                            name='gender'
+                            id='male'
+                            value='male'
+                            checked={gender === 'male'}
+                            onChange={(e) => setGender(e.target.value)}
+                            required
+                        />
+                    </label>
+
+                    <label>Female
+                        <input
+                            type='radio'
+                            name='gender'
+                            id='female'
+                            value='female'
+                            checked={gender === 'female'}
+                            onChange={(e) => setGender(e.target.value)}
+                            required
+                        />
+                    </label>
+
+                <label>Hobby </label>
+                <div className="hobby-options">
+                    <input
+                        type='checkbox'
+                        name='hobby'
+                        id='Photography'
+                        value='Photography'
+                        // onChange={(e) => setHobby(e.target.value)}
+                    />  Photography:
+
+                    <input
+                        type='checkbox'
+                        name='hobby'
+                        id='Gardening'
+                        value='Gardening'
+                        // onChange={(e) => setHobby(e.target.value)}
+                    /> Gardening:
+
+                    <input
+                        type='checkbox'
+                        name='hobby'
+                        id='Cooking'
+                        value='Cooking'
+                        // onChange={(e) => setHobby(e.target.value)}
+                    /> Cooking:
+                </div>
+
+                <button type='submit'>Submit</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Hobby</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tables.map((entry, index) => (
+                        <tr key={index}>
+                            <td>{entry.name}</td>
+                            <td>{entry.email}</td>
+                            <td>{entry.phone}</td>
+                            <td>{entry.gender}</td>
+                            <td>{entry.hobby}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </>
+    );
+}
+
+export default Form; */
+
+
+       
